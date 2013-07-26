@@ -37,7 +37,7 @@ window.apod = (function () {
    */
 
   function ymdToDate(ymd) {
-    var y, m, d;
+    var components, y, m, d;
 
     function unpad(numberString) {
       return parseInt(numberString, 10);
@@ -45,9 +45,10 @@ window.apod = (function () {
 
     // We cannot just pass ymd into the Date constructor. While that may work
     // in some browsers, all browsers parse human-readable dates differently.
-    y = unpad(ymd.substring(0, 4));
-    m = unpad(ymd.substring(5, 7)) - 1;
-    d = unpad(ymd.substring(8, 10));
+    components = ymd.split('-');
+    y = unpad(components[0]);
+    m = unpad(components[1]) - 1;
+    d = unpad(components[2]);
 
     return new Date(y, m, d);
   }
