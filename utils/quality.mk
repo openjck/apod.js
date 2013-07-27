@@ -1,6 +1,10 @@
+# This Makefile uses the following NPM utilities.
+# * https://npmjs.org/package/jslint
+# * https://npmjs.org/package/js-beautify
+
 browser = firefox
 targets = beautify jslint tests
-files = apod.js tests/tests.js examples/examples.js
+jsfiles = ../apod.js ../tests/tests.js ../examples/examples.js
 
 options-jsb = -rqjs 2
 options-vim = -E -c "normal gg=G" -c "wq" --
@@ -19,7 +23,7 @@ newline:
 beautify:
 	@echo "Beautify"
 	@echo "========"
-	@for file in $(files); do \
+	@for file in $(jsfiles); do \
 		js-beautify $(options-jsb) -f $$file; \
 		vim $(options-vim) $$file > /dev/null; \
 		echo "Beautified: $$file"; \
@@ -29,7 +33,7 @@ beautify:
 jslint:
 	@echo "JSLint"
 	@echo "======"
-	@for file in $(files); do \
+	@for file in $(jsfiles); do \
 		jslint $$file | tail -n +2; \
 	done
 	@echo
