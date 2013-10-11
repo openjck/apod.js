@@ -6,11 +6,15 @@ apod.js is a JavaScript library that offers simple access to data published on t
 
 Download a copy of apod.js and attach it to your document.
 
-    <script src="/path/to/apod.js"></script>
+```html
+<script src="/path/to/apod.js"></script>
+```
 
 Data frequently includes non-English characters, so be sure to use UTF-8 encoding.
 
-    <meta charset="utf-8" />
+```html
+<meta charset="utf-8" />
+```
 
 ## Examples
 
