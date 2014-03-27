@@ -6,7 +6,7 @@ browser = firefox
 targets = beautify jslint tests
 jsfiles = ../apod.js ../tests/tests.js ../examples/examples.js
 
-options-jsb = --quiet --replace --jslint-happy --indent-size 4
+options-jsb = --quiet --replace --jslint-happy
 options-vim = -E -c "normal gg=G" -c "wq" --
 
 .PHONY: all-no-tests all newline $(targets)
