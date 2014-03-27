@@ -1,4 +1,4 @@
-/*jslint browser: true*/
+/*jslint unparam: true, browser: true*/
 /*global apod*/
 
 'use strict';

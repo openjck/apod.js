@@ -186,33 +186,33 @@
     module('Exceptions');
 
     asyncTest('End date falls before start date', 1, function () {
-        var startDate, endDate, success, failure, span;
+        var startDate, endDate, success, failure;
         startDate = new Date(2013, 1, 9);
         endDate = new Date(2013, 1, 8);
 
-        success = function (span) {
+        success = function () {
             ok(false); // Fail the test if success is called.
             start();
         };
 
-        failure = function (errorName, errorDesc) {
+        failure = function (errorName) {
             strictEqual(errorName, 'TimespanError');
             start();
         };
 
-        span = apod.getBetween(startDate, endDate, success, failure);
+        apod.getBetween(startDate, endDate, success, failure);
     });
 
     asyncTest('No APOD published on given date', 1, function () {
         var date, success, failure;
         date = new Date(1800, 0, 1);
 
-        success = function (nothing) {
+        success = function () {
             ok(false); // Fail the test if success is called.
             start();
         };
 
-        failure = function (errorName, errorDesc) {
+        failure = function (errorName) {
             strictEqual(errorName, 'NothingPublishedError');
             start();
         };
@@ -230,8 +230,8 @@
             start();
         };
 
-        failure = function (name, message) {
-            strictEqual(name, 'NothingPublishedError');
+        failure = function (errorName) {
+            strictEqual(errorName, 'NothingPublishedError');
             start();
         };
 

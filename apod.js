@@ -124,13 +124,13 @@ window.apod = (function () {
             jsonURL = jsonURLBase + encodeURIComponent(query);
 
             getJSON(jsonURL, function (data) {
-                var result, apod;
+                var result, apodObject;
                 if (data.length === 0) {
                     failure('NothingPublishedError', 'No Astronomy Picture of the Day published on specified date.');
                 } else {
                     result = data[0];
-                    apod = new APOD(result.title, result.explanation, result.picture_url, result.url, date);
-                    success(apod);
+                    apodObject = new APOD(result.title, result.explanation, result.picture_url, result.url, date);
+                    success(apodObject);
                 }
             });
         },
