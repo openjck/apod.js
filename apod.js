@@ -5,7 +5,7 @@ window.apod = (function () {
   'use strict';
 
   var jsonURLBase, apod;
-  jsonURLBase = '//api.scraperwiki.com/api/1.0/datastore/sqlite?format=jsondict&name=astronomy_picture_of_the_day&query=';
+  jsonURLBase = '//free-ec2.scraperwiki.com/apa2s5i/9b00174f1eb04c7/sql/?q=';
 
   /**
    * Return a human-readable representation of a Date object in YYYY-MM-DD
