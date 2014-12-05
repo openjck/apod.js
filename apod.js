@@ -4,8 +4,13 @@
 window.apod = (function () {
     'use strict';
 
-    var jsonURLBase, apod;
-    jsonURLBase = '//free-ec2.scraperwiki.com/apa2s5i/9b00174f1eb04c7/sql/?q=';
+    var jsonURLProtocol, jsonURLBase, apod;
+
+    // Use the same protocol to load ScraperWiki data. If something other than
+    // HTTP or HTTPS is being used (for example, file) default to HTTPS. This
+    // allows the library to work both locally and while being hosted.
+    jsonURLProtocol = (location.protocol.indexOf('http') > -1) ? location.protocol : 'https:';
+    jsonURLBase = jsonURLProtocol + '//free-ec2.scraperwiki.com/apa2s5i/9b00174f1eb04c7/sql/?q=';
 
     /**
      * Return a human-readable representation of a Date object in YYYY-MM-DD
