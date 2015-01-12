@@ -1,0 +1,31 @@
+{
+    "name": "apod.js",
+    "main": "apod.js",
+    "version": "1.0.1",
+    "homepage": "https://github.com/openjck/apod.js",
+    "authors": [
+        {
+            "name": "John Karahalis",
+            "email": "john.karahalis@gmail.com",
+            "homepage": "http://openjck.com"
+        }
+    ],
+    "description": "JavaScript library that offers simple access to data published on the Astronomy Picture of the Day website",
+    "moduleType": [
+        "globals"
+    ],
+    "keywords": [
+        "apod",
+        "astronomy",
+        "education",
+        "government",
+        "nasa"
+    ],
+    "license": "GPL-3.0",
+    "ignore": [
+        "README.md",
+        "examples",
+        "tests",
+        "utils"
+    ]
+}
