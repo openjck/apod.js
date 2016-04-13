@@ -6,7 +6,10 @@
 apod.get(new Date(2013, 4, 23), function (m109) {
     console.log(m109.title);
     console.log(m109.explanation);
+    console.log(m109.credit);
     console.log(m109.pictureURL);
+    console.log(m109.pictureThumbnailURL);
+    console.log(m109.videoURL);
     console.log(m109.url);
     console.log(m109.date);
 });

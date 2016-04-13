@@ -22,7 +22,10 @@ Data frequently includes non-English characters, so be sure to use UTF-8 encodin
 apod.get(new Date(2013, 4, 23), function (m109) {
     console.log(m109.title); // Messier 109
     console.log(m109.explanation); // Beautiful barred spiral ... of the larger M109.
+    console.log(m109.credit); // Image Credit ... <a href="http://bf-astro.com/">Bob Franke</a>
     console.log(m109.pictureURL); // http://apod.nasa.gov/apod/image/1305/m109franke2400.jpg
+    console.log(m109.pictureThumbnailURL); // "http://apod.nasa.gov/apod/image/1305/m109franke900.jpg
+    console.log(m109.videoURL); // [empty string]
     console.log(m109.url); // http://apod.nasa.gov/apod/ap130523.html
     console.log(m109.date); // Thu May 23 2013 00:00:00 GMT-0800 (PDT)
 });
@@ -112,11 +115,23 @@ The Astronomy Picture of the Day title.
 
 ##### explanation
 
-The Astronomy Picture of the Day explanation. The explanation often contains HTML elements.
+The Astronomy Picture of the Day explanation. Often contains HTML.
+
+##### credit
+
+The credit for the picture or video. Often contains HTML.
 
 ##### pictureURL
 
-The URL of the picture itself.
+The URL of a high-resolution version of the picture. This is usually shown after clicking the thumbnail in the center of the day's landing page. Not always available. Sometimes, only thumbnails are published.
+
+##### pictureThumbnailURL
+
+The URL of the picture's thumbnail. This is usually shown in the center of the day's landing page.
+
+##### videoURL
+
+The URL of the video that was published, or an empty string. (Videos are sometimes published instead of pictures.)
 
 ### Errors
 

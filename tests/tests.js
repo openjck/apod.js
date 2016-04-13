@@ -27,12 +27,55 @@
         apod.get(ngcDate, success);
     });
 
+    asyncTest('Credit', 1, function () {
+        var success = function (ngc) {
+            strictEqual(ngc.credit, 'Image Credit &amp; <a href="http://apod.nasa.gov/apod/lib/about_apod.html#srapply">Copyright</a>: <a href="http://sleshin.startlogic.com/">Stephen Leshin</a>, Collaboration: Deidre Hunter <a href="http://www.lowell.edu/LARI_welcome.php">and LARI</a>');
+            start();
+        };
+        apod.get(ngcDate, success);
+    });
+
     asyncTest('Picture URL', 1, function () {
         var success = function (ngc) {
             strictEqual(ngc.pictureURL, 'http://apod.nasa.gov/apod/image/1302/NGC6822_L_HaR_GB_final2000.jpg');
             start();
         };
         apod.get(ngcDate, success);
+    });
+
+    asyncTest('Picture thumbnail URL', 1, function () {
+        var success = function (ngc) {
+            strictEqual(ngc.pictureThumbnailURL, 'http://apod.nasa.gov/apod/image/1302/NGC6822_L_HaR_GB_final900.jpg');
+            start();
+        };
+
+        apod.get(ngcDate, success);
+    });
+
+    asyncTest('Picture thumbnail URL when no high-resolution version is available', 1, function () {
+        var onlyThumbnailDate, success;
+
+        onlyThumbnailDate = new Date(2001, 5, 28);
+
+        success = function (onlyThumbnail) {
+            strictEqual(onlyThumbnail.pictureThumbnailURL, 'http://apod.nasa.gov/apod/image/0106/marstopography_mola.jpg');
+            start();
+        };
+
+        apod.get(onlyThumbnailDate, success);
+    });
+
+    asyncTest('Video URL', 1, function () {
+        var videoAPOD, success;
+
+        videoAPOD = new Date(2016, 3, 5);
+
+        success = function (ngc) {
+            strictEqual(ngc.videoURL, 'https://www.youtube.com/embed/-I3X6hSOrhQ?rel=0');
+            start();
+        };
+
+        apod.get(videoAPOD, success);
     });
 
     asyncTest('URL', 1, function () {
@@ -62,7 +105,7 @@
     module('apod.getBetween', {
         setup: function () {
             startDate = new Date(2013, 1, 8);
-            endDate = new Date(2013, 1, 12);
+            endDate = new Date(2013, 1, 14);
         }
     });
 
@@ -82,17 +125,48 @@
         apod.getBetween(startDate, endDate, success);
     });
 
-    asyncTest('Picture URL', 1, function () {
+    asyncTest('Credit', 1, function () {
         var success = function (span) {
-            strictEqual(span[2].pictureURL, 'http://apod.nasa.gov/apod/image/1302/asteroidstreak_hst_350.jpg');
+            strictEqual(span[2].credit, 'Image Credit: R. Evans &amp; K. Stapelfeldt (<a href="http://www.jpl.nasa.gov/">JPL</a>), <a href="http://www.stsci.edu/hst/wfpc2">WFPC2</a>, <a href="http://www.stsci.edu/hst/HST_overview/">HST</a>, <a href="http://www.nasa.gov/">NASA</a>');
             start();
         };
         apod.getBetween(startDate, endDate, success);
     });
 
+    asyncTest('Picture URL', 1, function () {
+        var success = function (span) {
+            strictEqual(span[3].pictureURL, 'http://apod.nasa.gov/apod/image/1302/ngc1763_lake_1600.jpg');
+            start();
+        };
+        apod.getBetween(startDate, endDate, success);
+    });
+
+    asyncTest('Picture thumbnail URL', 1, function () {
+        var success = function (span) {
+            strictEqual(span[4].pictureThumbnailURL, 'http://apod.nasa.gov/apod/image/1302/auroralake_salat_960.jpg');
+            start();
+        };
+        apod.getBetween(startDate, endDate, success);
+    });
+
+    asyncTest('Video URL', 1, function () {
+        var videoStart, videoEnd, success;
+
+        // 2012-03-05 has a video. Let's use a range that includes that.
+        videoStart = new Date(2012, 2, 3);
+        videoEnd = new Date(2012, 2, 7);
+
+        success = function (span) {
+            strictEqual(span[2].videoURL, 'http://www.youtube.com/embed/FG0fTKAqZ5g?rel=0');
+            start();
+        };
+
+        apod.getBetween(videoStart, videoEnd, success);
+    });
+
     asyncTest('URL', 1, function () {
         var success = function (span) {
-            strictEqual(span[3].url, 'http://apod.nasa.gov/apod/ap130211.html');
+            strictEqual(span[5].url, 'http://apod.nasa.gov/apod/ap130213.html');
             start();
         };
         apod.getBetween(startDate, endDate, success);
@@ -100,10 +174,10 @@
 
     asyncTest('Date', 1, function () {
         var success = function (span) {
-            var fifthDate, expectedDate;
-            fifthDate = span[4].date;
-            expectedDate = new Date(2013, 1, 12);
-            strictEqual(fifthDate.getTime(), expectedDate.getTime());
+            var date, expectedDate;
+            date = span[6].date;
+            expectedDate = new Date(2013, 1, 14);
+            strictEqual(date.getTime(), expectedDate.getTime());
             start();
         };
         apod.getBetween(startDate, endDate, success);
@@ -111,7 +185,7 @@
 
     asyncTest('Length', 1, function () {
         var success = function (span) {
-            strictEqual(span.length, 5);
+            strictEqual(span.length, 7);
             start();
         };
         apod.getBetween(startDate, endDate, success);

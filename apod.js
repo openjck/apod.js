@@ -108,10 +108,13 @@ window.apod = (function () {
      * See README.md for documentation on these names.
      */
 
-    function APOD(title, explanation, pictureURL, url, date) {
+    function APOD(title, explanation, credit, pictureURL, pictureThumbnailURL, videoURL, url, date) {
         this.title = title;
+        this.credit = credit;
         this.explanation = explanation;
         this.pictureURL = pictureURL;
+        this.pictureThumbnailURL = pictureThumbnailURL;
+        this.videoURL = videoURL;
         this.url = url;
         this.date = date;
     }
@@ -134,7 +137,7 @@ window.apod = (function () {
                     failure('NothingPublishedError', 'No Astronomy Picture of the Day published on specified date.');
                 } else {
                     result = data[0];
-                    apodObject = new APOD(result.title, result.explanation, result.picture_url, result.url, date);
+                    apodObject = new APOD(result.title, result.explanation, result.credit, result.picture_url, result.picture_thumbnail_url, result.video_url, result.url, date);
                     success(apodObject);
                 }
             });
@@ -163,7 +166,7 @@ window.apod = (function () {
                         for (i = 0; i < ascendingResults.length; i += 1) {
                             result = ascendingResults[i];
                             resultDate = ymdToDate(result.date);
-                            apods.push(new APOD(result.title, result.explanation, result.picture_url, result.url, resultDate));
+                            apods.push(new APOD(result.title, result.explanation, result.credit, result.picture_url, result.picture_thumbnail_url, result.video_url, result.url, resultDate));
                         }
                         success(apods);
                     }
