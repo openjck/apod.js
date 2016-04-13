@@ -1,7 +1,7 @@
 /*jslint browser: true*/
 /*global XDomainRequest*/
 
-window.apod = (function () {
+window.apod = (function() {
     'use strict';
 
     var jsonURLProtocol, jsonURLBase, apod;
@@ -85,12 +85,12 @@ window.apod = (function () {
         // derp). Otherwise, use XMLHttpRequest.
         if (window.XDomainRequest) {
             request = new XDomainRequest();
-            request.onload = function () {
+            request.onload = function() {
                 runCallback();
             };
         } else {
             request = new XMLHttpRequest();
-            request.onreadystatechange = function () {
+            request.onreadystatechange = function() {
                 if (request.readyState === 4 && (request.status === 200 || request.status === 0)) {
                     runCallback();
                 }
@@ -124,14 +124,14 @@ window.apod = (function () {
      */
     apod = {
 
-        get: function (date, success, failure) {
+        get: function(date, success, failure) {
             var ymd, query, jsonURL;
 
             ymd = dateToYMD(date);
             query = 'SELECT * FROM `swdata` WHERE `date` = "' + ymd + '"';
             jsonURL = jsonURLBase + encodeURIComponent(query);
 
-            getJSON(jsonURL, function (data) {
+            getJSON(jsonURL, function(data) {
                 var result, apodObject;
                 if (data.length === 0) {
                     failure('NothingPublishedError', 'No Astronomy Picture of the Day published on specified date.');
@@ -143,7 +143,7 @@ window.apod = (function () {
             });
         },
 
-        getBetween: function (startDate, endDate, success, failure) {
+        getBetween: function(startDate, endDate, success, failure) {
             var firstYMD, lastYMD, query, jsonURL;
 
             // Find the first and last chronological date and convert them to
@@ -166,7 +166,7 @@ window.apod = (function () {
 
             jsonURL = jsonURLBase + encodeURIComponent(query);
 
-            getJSON(jsonURL, function (data) {
+            getJSON(jsonURL, function(data) {
                 var ascendingResults, i, result, resultDate, apods;
                 apods = [];
 
