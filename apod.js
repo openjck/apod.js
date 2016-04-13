@@ -144,34 +144,45 @@ window.apod = (function () {
         },
 
         getBetween: function (startDate, endDate, success, failure) {
-            var startYMD, endYMD, query, jsonURL;
+            var firstYMD, lastYMD, query, jsonURL;
 
-            if (startDate > endDate) {
-                failure('TimespanError', 'End date cannot fall before start date.');
+            // Find the first and last chronological date and convert them to
+            // YYYY-MM-DD format
+            if (startDate < endDate) {
+                firstYMD = dateToYMD(startDate);
+                lastYMD = dateToYMD(endDate);
             } else {
-                startYMD = dateToYMD(startDate);
-                endYMD = dateToYMD(endDate);
-                query = 'SELECT * FROM `swdata` WHERE `date` BETWEEN "' + startYMD + '" AND "' + endYMD + '"';
-                jsonURL = jsonURLBase + encodeURIComponent(query);
-
-                getJSON(jsonURL, function (data) {
-                    var ascendingResults, i, result, resultDate, apods;
-                    apods = [];
-
-                    if (data.length === 0) {
-                        failure('NothingPublishedError', 'No Astronomy Pictures of the Day published between specified dates.');
-                    } else {
-                        // Results are returned in descending order. Change that!
-                        ascendingResults = data.reverse();
-                        for (i = 0; i < ascendingResults.length; i += 1) {
-                            result = ascendingResults[i];
-                            resultDate = ymdToDate(result.date);
-                            apods.push(new APOD(result.title, result.explanation, result.credit, result.picture_url, result.picture_thumbnail_url, result.video_url, result.url, resultDate));
-                        }
-                        success(apods);
-                    }
-                });
+                firstYMD = dateToYMD(endDate);
+                lastYMD = dateToYMD(startDate);
             }
+
+            query = 'SELECT * FROM `swdata` WHERE `date` BETWEEN "' + firstYMD + '" AND "' + lastYMD + '"';
+
+            // If the dates were passed in reverse-chronological order, return
+            // the results in reverse-chronological order.
+            if (endDate < startDate) {
+                query += ' ORDER BY `date` ASC';
+            }
+
+            jsonURL = jsonURLBase + encodeURIComponent(query);
+
+            getJSON(jsonURL, function (data) {
+                var ascendingResults, i, result, resultDate, apods;
+                apods = [];
+
+                if (data.length === 0) {
+                    failure('NothingPublishedError', 'No Astronomy Pictures of the Day published between specified dates.');
+                } else {
+                    // Results are returned in descending order. Change that!
+                    ascendingResults = data.reverse();
+                    for (i = 0; i < ascendingResults.length; i += 1) {
+                        result = ascendingResults[i];
+                        resultDate = ymdToDate(result.date);
+                        apods.push(new APOD(result.title, result.explanation, result.credit, result.picture_url, result.picture_thumbnail_url, result.video_url, result.url, resultDate));
+                    }
+                    success(apods);
+                }
+            });
         }
 
     };

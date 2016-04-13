@@ -191,6 +191,34 @@
         apod.getBetween(startDate, endDate, success);
     });
 
+    asyncTest('Dates passed in reverse-chronological order', 9, function () {
+        var laterStartDate, earlierEndDate, success;
+
+        laterStartDate = new Date(2016, 0, 5);
+        earlierEndDate = new Date(2016, 0, 1);
+
+        success = function (span) {
+            // Length
+            strictEqual(span.length, 5);
+
+            // Dates
+            strictEqual(span[0].date.getTime(), laterStartDate.getTime());
+            strictEqual(span[2].date.getTime(), new Date(2016, 0, 3).getTime());
+            strictEqual(span[span.length - 1].date.getTime(), earlierEndDate.getTime());
+
+            // Titles
+            strictEqual(span[0].title, 'The Lagoon Nebula in Hydrogen Sulfur and Oxygen');
+            strictEqual(span[1].title, 'Earthset from the Lunar Reconnaissance Orbiter');
+            strictEqual(span[2].title, 'A Starry Night of Iceland');
+            strictEqual(span[3].title, 'Sky Lights in the New Year');
+            strictEqual(span[4].title, 'Comet Catalina Tails');
+
+            start();
+        };
+
+        apod.getBetween(laterStartDate, earlierEndDate, success);
+    });
+
 }());
 
 (function () {
@@ -258,24 +286,6 @@
     'use strict';
 
     module('Exceptions');
-
-    asyncTest('End date falls before start date', 1, function () {
-        var startDate, endDate, success, failure;
-        startDate = new Date(2013, 1, 9);
-        endDate = new Date(2013, 1, 8);
-
-        success = function () {
-            ok(false); // Fail the test if success is called.
-            start();
-        };
-
-        failure = function (errorName) {
-            strictEqual(errorName, 'TimespanError');
-            start();
-        };
-
-        apod.getBetween(startDate, endDate, success, failure);
-    });
 
     asyncTest('No APOD published on given date', 1, function () {
         var date, success, failure;

@@ -42,13 +42,6 @@ apod.get(new Date(1930, 1, 18), function (discovery) {
     console.log(errorName); // NothingPublishedError
     console.log(errorDesc); // No Astronomy Picture of the Day published on specified date.
 });
-
-apod.getBetween(new Date(2012, 11, 31), new Date(2010, 0, 1), function (recentYears) {
-    console.log("I know how dates work.");
-}, function (errorName, errorDesc) {
-    console.log(errorName); // TimespanError
-    console.log(errorDesc); // End date cannot fall before start date.
-});
 ```
 
 ## API Documentation
@@ -138,10 +131,6 @@ The URL of the video that was published, or an empty string. (Videos are sometim
 #### NothingPublishedError
 
 Thrown when no Astronomy Pictures of the Day were published on the given date or between the given start and end dates (inclusively).
-
-#### TimespanError
-
-Thrown when the end date passed to `apod.getBetween` falls before the start date.
 
 ## Browser support
 
