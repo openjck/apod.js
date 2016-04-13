@@ -5,4 +5,4 @@ these commands:
 
 1. `npm install`
 2. `gulp beautify`
-3. `gulp test
+3. `gulp test`
