@@ -19,7 +19,7 @@ Data frequently includes non-English characters, so be sure to use UTF-8 encodin
 ## Examples
 
 ```javascript
-apod.get(new Date(2013, 4, 23), function (m109) {
+apod.get(new Date(2013, 4, 23), function(m109) {
     console.log(m109.title); // Messier 109
     console.log(m109.explanation); // Beautiful barred spiral ... of the larger M109.
     console.log(m109.credit); // Image Credit ... <a href="http://bf-astro.com/">Bob Franke</a>
@@ -30,15 +30,15 @@ apod.get(new Date(2013, 4, 23), function (m109) {
     console.log(m109.date); // Thu May 23 2013 00:00:00 GMT-0800 (PDT)
 });
 
-apod.getBetween(new Date(2013, 5, 1), new Date(2013, 5, 3), function (earlyJune) {
+apod.getBetween(new Date(2013, 5, 1), new Date(2013, 5, 3), function(earlyJune) {
     console.log(earlyJune[0].title); // The Milky Trail
     console.log(earlyJune[1].title); // A Roll Cloud Over Uruguay
     console.log(earlyJune[2].title); // Curiosity: Wheels on Mars
 });
 
-apod.get(new Date(1930, 1, 18), function (discovery) {
+apod.get(new Date(1930, 1, 18), function(discovery) {
     console.log("Thanks for inviting me guys! We're gonna be best friends forever!");
-}, function (errorName, errorDesc) {
+}, function(errorName, errorDesc) {
     console.log(errorName); // NothingPublishedError
     console.log(errorDesc); // No Astronomy Picture of the Day published on specified date.
 });
